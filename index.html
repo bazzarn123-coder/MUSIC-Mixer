@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Mix AI Fully-Automated Sequencer Studio</title>
+    <title>Mega Mix AI Simultaneous Blend Studio</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #060812; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
-        input[type="range"] { accent-color: #8b5cf6; }
+        input[type="range"] { accent-color: #3b82f6; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -16,15 +16,15 @@
     <!-- Header -->
     <header class="bg-slate-900 border-b border-slate-800 p-4 flex justify-between items-center shadow-lg">
         <div class="flex items-center space-x-3">
-            <div class="bg-gradient-to-tr from-purple-600 to-pink-600 p-2.5 rounded-xl text-xl shadow">✨</div>
+            <div class="bg-gradient-to-tr from-blue-600 to-cyan-600 p-2.5 rounded-xl text-xl shadow">🎛️</div>
             <div>
-                <h1 class="text-lg md:text-xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-300 bg-clip-text text-transparent">MEGA MIX AI AUTO-SEQUENCER</h1>
-                <p class="text-xs text-slate-400">Fully Automated AI Transition: Song 1 ➔ Overlap & Blend ➔ Song 2 Solo</p>
+                <h1 class="text-lg md:text-xl font-black tracking-wider bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">MEGA MIX SIMULTANEOUS BLEND STUDIO</h1>
+                <p class="text-xs text-slate-400">Play Both Songs Simultaneously • AI Tempo & Beat Locked • Seamless Dual Overlap</p>
             </div>
         </div>
         <div class="flex items-center space-x-3">
-            <button onclick="exportAutomatedMix()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-xl font-bold transition shadow-md text-sm flex items-center space-x-2">
-                <span>💾</span><span>Export Auto-Mix (WAV)</span>
+            <button onclick="exportSimultaneousMix()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl font-bold transition shadow-md text-sm flex items-center space-x-2">
+                <span>💾</span><span>Export Mashup (WAV)</span>
             </button>
         </div>
     </header>
@@ -37,7 +37,7 @@
             <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 border-b border-slate-700 pb-2">1. Track Library</h2>
             
             <!-- Upload Box -->
-            <label class="border-2 border-dashed border-slate-600 hover:border-purple-500 rounded-xl p-5 text-center cursor-pointer transition block bg-slate-900/40 group">
+            <label class="border-2 border-dashed border-slate-600 hover:border-blue-500 rounded-xl p-5 text-center cursor-pointer transition block bg-slate-900/40 group">
                 <input type="file" id="audio-file-input" accept="audio/*" multiple class="hidden" onchange="handleFileUpload(event)">
                 <div class="text-2xl mb-1 group-hover:scale-110 transition">📂</div>
                 <p class="text-xs font-semibold text-slate-300">Upload Your Songs</p>
@@ -50,86 +50,76 @@
             </div>
         </div>
 
-        <!-- Right Column: Automated Mixing Engine -->
+        <!-- Right Column: Simultaneous Dual Mixing Engine -->
         <div class="lg:col-span-3 flex flex-col space-y-6">
             
-            <!-- Dual Slots for Auto Sequence -->
+            <!-- Dual Song Assignment Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
-                <!-- Song 1 Slot -->
+                <!-- Song A Slot -->
                 <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 flex flex-col justify-between space-y-4">
                     <div class="flex justify-between items-center border-b border-slate-700/60 pb-2">
-                        <span class="text-xs font-bold px-2 py-0.5 bg-purple-500/20 text-purple-400 rounded-md border border-purple-500/30">SONG 1 (Starts First)</span>
-                        <span id="slot-1-name" class="text-xs font-medium text-slate-400 truncate max-w-[140px]">Empty</span>
+                        <span class="text-xs font-bold px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded-md border border-blue-500/30">SONG A (Base Track)</span>
+                        <span id="slot-a-name" class="text-xs font-medium text-slate-400 truncate max-w-[140px]">Empty</span>
                     </div>
                     <div class="space-y-2 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
                         <div class="flex justify-between text-xs text-slate-300">
                             <span>Detected BPM:</span>
-                            <span id="slot-1-bpm" class="font-bold text-purple-400">--</span>
+                            <span id="slot-a-bpm" class="font-bold text-blue-400">--</span>
                         </div>
                         <div class="flex justify-between text-xs text-slate-300">
-                            <span>Duration:</span>
-                            <span id="slot-1-dur" class="font-bold text-slate-200">--</span>
+                            <span>Volume Balance:</span>
+                            <input type="range" id="vol-a" min="0" max="1" step="0.05" value="0.85" class="w-28">
                         </div>
                     </div>
-                    <button onclick="assignToSlot(1)" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold py-2 rounded-xl transition">
-                        Assign Selected Track as Song 1
+                    <button onclick="assignToSlot('A')" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold py-2 rounded-xl transition">
+                        Assign Selected Track to Song A
                     </button>
                 </div>
 
-                <!-- Song 2 Slot -->
+                <!-- Song B Slot -->
                 <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 flex flex-col justify-between space-y-4">
                     <div class="flex justify-between items-center border-b border-slate-700/60 pb-2">
-                        <span class="text-xs font-bold px-2 py-0.5 bg-pink-500/20 text-pink-400 rounded-md border border-pink-500/30">SONG 2 (Joins & Takes Over)</span>
-                        <span id="slot-2-name" class="text-xs font-medium text-slate-400 truncate max-w-[140px]">Empty</span>
+                        <span class="text-xs font-bold px-2 py-0.5 bg-cyan-500/20 text-cyan-400 rounded-md border border-cyan-500/30">SONG B (Simultaneous Overlap)</span>
+                        <span id="slot-b-name" class="text-xs font-medium text-slate-400 truncate max-w-[140px]">Empty</span>
                     </div>
                     <div class="space-y-2 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
                         <div class="flex justify-between text-xs text-slate-300">
                             <span>Detected BPM:</span>
-                            <span id="slot-2-bpm" class="font-bold text-pink-400">--</span>
+                            <span id="slot-b-bpm" class="font-bold text-cyan-400">--</span>
                         </div>
                         <div class="flex justify-between text-xs text-slate-300">
-                            <span>Duration:</span>
-                            <span id="slot-2-dur" class="font-bold text-slate-200">--</span>
+                            <span>Volume Balance:</span>
+                            <input type="range" id="vol-b" min="0" max="1" step="0.05" value="0.85" class="w-28">
                         </div>
                     </div>
-                    <button onclick="assignToSlot(2)" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold py-2 rounded-xl transition">
-                        Assign Selected Track as Song 2
+                    <button onclick="assignToSlot('B')" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold py-2 rounded-xl transition">
+                        Assign Selected Track to Song B
                     </button>
                 </div>
 
             </div>
 
-            <!-- Fully Automated AI Transition Timeline Controls -->
+            <!-- Playback Control Center -->
             <div class="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-5 flex flex-col space-y-4 shadow-xl">
                 <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-200">2. Automated AI Sequencing Rules</h2>
-                    <span id="sequence-status" class="text-xs text-purple-400 font-medium">Ready to Automate</span>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-200">2. Simultaneous AI Beat-Lock Engine</h2>
+                    <span id="blend-status" class="text-xs text-blue-400 font-medium">Ready</span>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                     <div>
-                        <label class="text-xs text-slate-400 block mb-1">Song 2 Mix-In Point (sec into Song 1)</label>
-                        <input type="number" id="mix-in-time" value="15" step="1" min="0" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm w-full font-bold">
-                        <span class="text-[10px] text-slate-500 mt-0.5 block">When Song 2 joins in over Song 1.</span>
+                        <p class="text-xs text-slate-300 font-medium mb-1">How it works:</p>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">Both songs start playing at the exact same instant. Song B's tempo is automatically stretched/compressed to lock onto Song A's BPM, allowing both artists to sing together in perfect harmony and rhythm.</p>
                     </div>
-                    <div>
-                        <label class="text-xs text-slate-400 block mb-1">Overlap Blend Duration (sec)</label>
-                        <input type="number" id="blend-duration" value="8" step="1" min="2" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm w-full font-bold">
-                        <span class="text-[10px] text-slate-500 mt-0.5 block">How long both songs play together.</span>
-                    </div>
-                    <div class="flex flex-col justify-end">
-                        <button onclick="playAutomatedSequence()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition shadow-lg flex items-center justify-center space-x-2">
-                            <span>🤖</span><span>Play Fully Automated AI Mix</span>
+                    <div class="flex space-x-3">
+                        <button onclick="playSimultaneousBlend()" class="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                            <span>▶</span><span>Play Simultaneous Blend</span>
+                        </button>
+                        <button onclick="stopAllPlayback()" class="bg-red-600/80 hover:bg-red-600 text-white font-semibold text-xs px-4 py-3 rounded-xl transition">
+                            ⏹ Stop
                         </button>
                     </div>
-                </div>
-
-                <div class="pt-2 flex justify-between items-center border-t border-slate-700/60">
-                    <button onclick="stopAllPlayback()" class="bg-red-600/80 hover:bg-red-600 text-white font-semibold text-xs px-4 py-2 rounded-xl transition">
-                        ⏹ Stop Playback
-                    </button>
-                    <p class="text-[11px] text-slate-400">AI automatically handles tempo matching, phase alignment, dual overlap, and clean fade-outs.</p>
                 </div>
             </div>
 
@@ -144,10 +134,9 @@
         let libraryTracks = [];
         let selectedTrackId = null;
 
-        let slot1Track = null;
-        let slot2Track = null;
+        let songATrack = null;
+        let songBTrack = null;
         let activeSources = [];
-        let timeoutHandles = [];
 
         function getAudioContext() {
             if (!audioCtx) {
@@ -220,7 +209,7 @@
         async function handleFileUpload(event) {
             const files = event.target.files;
             if (!files.length) return;
-            showNotification(`AI Scanning ${files.length} song(s)...`);
+            showNotification(`AI Scanning ${files.length} track(s)...`);
             const ctx = getAudioContext();
 
             for (let file of files) {
@@ -240,7 +229,7 @@
 
                     libraryTracks.push(track);
                     renderLibrary();
-                    showNotification(`AI Analyzed: ${file.name} (${analysis.bpm} BPM)`);
+                    showNotification(`Loaded: ${file.name} (${analysis.bpm} BPM)`);
                 } catch (err) {
                     console.error(err);
                     showNotification(`Error decoding ${file.name}.`);
@@ -257,7 +246,7 @@
             }
 
             libEl.innerHTML = libraryTracks.map(t => `
-                <div onclick="selectTrack('${t.id}')" class="bg-slate-900/70 border ${selectedTrackId === t.id ? 'border-purple-500 bg-purple-950/30' : 'border-slate-800'} hover:border-slate-600 p-2.5 rounded-xl cursor-pointer transition flex items-center justify-between">
+                <div onclick="selectTrack('${t.id}')" class="bg-slate-900/70 border ${selectedTrackId === t.id ? 'border-blue-500 bg-blue-950/30' : 'border-slate-800'} hover:border-slate-600 p-2.5 rounded-xl cursor-pointer transition flex items-center justify-between">
                     <div class="overflow-hidden mr-2">
                         <p class="text-xs font-semibold text-slate-200 truncate">${t.name}</p>
                         <p class="text-[10px] text-slate-400">${t.duration.toFixed(1)}s • ${t.bpm} BPM</p>
@@ -272,7 +261,7 @@
             renderLibrary();
         }
 
-        function assignToSlot(slotNum) {
+        function assignToSlot(slotLetter) {
             if (!selectedTrackId) {
                 showNotification("Please select a track from your library first.");
                 return;
@@ -280,18 +269,16 @@
             const track = libraryTracks.find(t => t.id === selectedTrackId);
             if (!track) return;
 
-            if (slotNum === 1) {
-                slot1Track = track;
-                document.getElementById('slot-1-name').textContent = track.name;
-                document.getElementById('slot-1-bpm').textContent = track.bpm + " BPM";
-                document.getElementById('slot-1-dur').textContent = track.duration.toFixed(1) + "s";
-                showNotification(`Assigned Song 1: ${track.name}`);
+            if (slotLetter === 'A') {
+                songATrack = track;
+                document.getElementById('slot-a-name').textContent = track.name;
+                document.getElementById('slot-a-bpm').textContent = track.bpm + " BPM";
+                showNotification(`Assigned Song A: ${track.name}`);
             } else {
-                slot2Track = track;
-                document.getElementById('slot-2-name').textContent = track.name;
-                document.getElementById('slot-2-bpm').textContent = track.bpm + " BPM";
-                document.getElementById('slot-2-dur').textContent = track.duration.toFixed(1) + "s";
-                showNotification(`Assigned Song 2: ${track.name}`);
+                songBTrack = track;
+                document.getElementById('slot-b-name').textContent = track.name;
+                document.getElementById('slot-b-bpm').textContent = track.bpm + " BPM";
+                showNotification(`Assigned Song B: ${track.name}`);
             }
         }
 
@@ -300,128 +287,100 @@
                 try { src.stop(); } catch(e) {}
             });
             activeSources = [];
-            timeoutHandles.forEach(h => clearTimeout(h));
-            timeoutHandles = [];
-            document.getElementById('sequence-status').textContent = "Stopped";
+            document.getElementById('blend-status').textContent = "Stopped";
             showNotification("Playback stopped.");
         }
 
-        // Fully Automated Web Audio Playback Sequence
-        function playAutomatedSequence() {
-            if (!slot1Track || !slot2Track) {
-                showNotification("Please assign both Song 1 and Song 2 before running the auto-mix.");
+        // Play Both Songs Simultaneously with AI Tempo Matching & Phase Alignment
+        function playSimultaneousBlend() {
+            if (!songATrack || !songBTrack) {
+                showNotification("Please assign both Song A and Song B to play a simultaneous blend.");
                 return;
             }
 
             const ctx = getAudioContext();
             stopAllPlayback();
 
-            const mixInTime = parseFloat(document.getElementById('mix-in-time').value) || 15;
-            const blendDuration = parseFloat(document.getElementById('blend-duration').value) || 8;
-            
-            // AI calculates speed stretching ratio so both tracks lock into identical tempo
-            const stretchRatio = slot1Track.bpm / slot2Track.bpm;
             const now = ctx.currentTime;
+            const volA = parseFloat(document.getElementById('vol-a').value) || 0.85;
+            const volB = parseFloat(document.getElementById('vol-b').value) || 0.85;
 
-            document.getElementById('sequence-status').textContent = "Playing Automated AI Mashup Sequence...";
-            showNotification("🚀 AI Auto-Sequence started: Song 1 playing solo...");
+            // AI calculates speed scaling factor so Song B matches Song A's BPM exactly
+            const stretchRatio = songATrack.bpm / songBTrack.bpm;
+            const phaseOffset = Math.max(0, songBTrack.firstBeat - songATrack.firstBeat);
 
-            // 1. Play Song 1 (Starts immediately at full volume)
-            const source1 = ctx.createBufferSource();
-            source1.buffer = slot1Track.buffer;
-            source1.playbackRate.value = 1.0;
+            document.getElementById('blend-status').textContent = "Playing Simultaneous Dual-Song Blend...";
+            showNotification("🎵 Playing both songs simultaneously in beat sync...");
 
-            const gain1 = ctx.createGain();
-            gain1.gain.setValueAtTime(1.0, now);
-            
-            // Schedule Song 1 fade-out when Song 2 takes over
-            const fadeOutStart = now + mixInTime;
-            const fadeOutEnd = fadeOutStart + blendDuration;
-            gain1.gain.setValueAtTime(1.0, fadeOutStart);
-            gain1.gain.linearRampToValueAtTime(0, fadeOutEnd);
+            // 1. Play Song A (Base Track)
+            const sourceA = ctx.createBufferSource();
+            sourceA.buffer = songATrack.buffer;
+            sourceA.playbackRate.value = 1.0;
 
-            source1.connect(gain1);
-            gain1.connect(ctx.destination);
-            source1.start(now);
-            activeSources.push(source1);
+            const gainA = ctx.createGain();
+            gainA.gain.setValueAtTime(volA, now);
 
-            // 2. Schedule Song 2 to join in automatically at mixInTime
-            const startSong2Delay = mixInTime;
-            const t2 = setTimeout(() => {
-                if (!ctx) return;
-                const innerNow = ctx.currentTime;
-                
-                showNotification("✨ Song 2 joined in! Overlapping beats...");
+            sourceA.connect(gainA);
+            gainA.connect(ctx.destination);
+            sourceA.start(now);
+            activeSources.push(sourceA);
 
-                const source2 = ctx.createBufferSource();
-                source2.buffer = slot2Track.buffer;
-                source2.playbackRate.value = stretchRatio; // Matched tempo
+            // 2. Play Song B Simultaneously (Tempo matched & phase aligned)
+            const sourceB = ctx.createBufferSource();
+            sourceB.buffer = songBTrack.buffer;
+            sourceB.playbackRate.value = stretchRatio;
 
-                const gain2 = ctx.createGain();
-                // Fade Song 2 in smoothly during the overlap blend
-                gain2.gain.setValueAtTime(0, innerNow);
-                gain2.gain.linearRampToValueAtTime(1.0, innerNow + blendDuration);
+            const gainB = ctx.createGain();
+            gainB.gain.setValueAtTime(volB, now);
 
-                source2.connect(gain2);
-                gain2.connect(ctx.destination);
-                
-                // Align phase offset dynamically
-                const phaseOffset = Math.max(0, slot2Track.firstBeat - slot1Track.firstBeat);
-                source2.start(innerNow, phaseOffset);
-                activeSources.push(source2);
+            sourceB.connect(gainB);
+            gainB.connect(ctx.destination);
 
-            }, startSong2Delay * 1000);
-
-            timeoutHandles.push(t2);
+            // Start Song B simultaneously, adjusted by its downbeat phase offset
+            sourceB.start(now, phaseOffset);
+            activeSources.push(sourceB);
         }
 
-        // Offline Rendering & Export of Automated Sequence
-        async function exportAutomatedMix() {
-            if (!slot1Track || !slot2Track) {
+        // Offline Rendering & Export of Simultaneous Blend
+        async function exportSimultaneousMix() {
+            if (!songATrack || !songBTrack) {
                 showNotification("Please assign both songs to export.");
                 return;
             }
 
-            showNotification("Rendering automated AI mix file... Please wait.");
+            showNotification("Rendering simultaneous mashup mix file... Please wait.");
 
-            const mixInTime = parseFloat(document.getElementById('mix-in-time').value) || 15;
-            const blendDuration = parseFloat(document.getElementById('blend-duration').value) || 8;
-            const stretchRatio = slot1Track.bpm / slot2Track.bpm;
+            const volA = parseFloat(document.getElementById('vol-a').value) || 0.85;
+            const volB = parseFloat(document.getElementById('vol-b').value) || 0.85;
+            const stretchRatio = songATrack.bpm / songBTrack.bpm;
+            const phaseOffset = Math.max(0, songBTrack.firstBeat - songATrack.firstBeat);
 
-            // Total duration accounts for Song 1 playing up to fade out + Song 2 remaining duration
-            const song2AdjustedDuration = slot2Track.duration / stretchRatio;
-            const totalDuration = mixInTime + blendDuration + song2AdjustedDuration;
+            const songBDuration = (songBTrack.duration / stretchRatio) + phaseOffset;
+            const maxDuration = Math.max(songATrack.duration, songBDuration);
 
             const sampleRate = 44100;
-            const offlineCtx = new OfflineAudioContext(2, sampleRate * totalDuration, sampleRate);
+            const offlineCtx = new OfflineAudioContext(2, sampleRate * maxDuration, sampleRate);
             const now = 0;
 
-            // Render Song 1 with fade out
-            const src1 = offlineCtx.createBufferSource();
-            src1.buffer = slot1Track.buffer;
-            src1.playbackRate.value = 1.0;
-            const gain1 = offlineCtx.createGain();
-            const fadeOutStart = now + mixInTime;
-            const fadeOutEnd = fadeOutStart + blendDuration;
-            gain1.gain.setValueAtTime(1.0, fadeOutStart);
-            gain1.gain.linearRampToValueAtTime(0, fadeOutEnd);
-            src1.connect(gain1);
-            gain1.connect(offlineCtx.destination);
-            src1.start(now);
+            // Render Song A
+            const srcA = offlineCtx.createBufferSource();
+            srcA.buffer = songATrack.buffer;
+            srcA.playbackRate.value = 1.0;
+            const gainA = offlineCtx.createGain();
+            gainA.gain.value = volA;
+            srcA.connect(gainA);
+            gainA.connect(offlineCtx.destination);
+            srcA.start(now);
 
-            // Render Song 2 with fade in at mixInTime
-            const src2 = offlineCtx.createBufferSource();
-            src2.buffer = slot2Track.buffer;
-            src2.playbackRate.value = stretchRatio;
-            const gain2 = offlineCtx.createGain();
-            const song2Start = now + mixInTime;
-            gain2.gain.setValueAtTime(0, song2Start);
-            gain2.gain.linearRampToValueAtTime(1.0, song2Start + blendDuration);
-            src2.connect(gain2);
-            gain2.connect(offlineCtx.destination);
-            
-            const phaseOffset = Math.max(0, slot2Track.firstBeat - slot1Track.firstBeat);
-            src2.start(song2Start, phaseOffset);
+            // Render Song B Simultaneously
+            const srcB = offlineCtx.createBufferSource();
+            srcB.buffer = songBTrack.buffer;
+            srcB.playbackRate.value = stretchRatio;
+            const gainB = offlineCtx.createGain();
+            gainB.gain.value = volB;
+            srcB.connect(gainB);
+            gainB.connect(offlineCtx.destination);
+            srcB.start(phaseOffset);
 
             try {
                 const renderedBuffer = await offlineCtx.startRendering();
@@ -429,11 +388,11 @@
                 const url = URL.createObjectURL(wavBlob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'fully-automated-ai-mashup.wav';
+                a.download = 'simultaneous-mashup-mix.wav';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                showNotification("Automated AI Mix successfully exported as WAV!");
+                showNotification("Simultaneous Mashup successfully exported as WAV!");
             } catch (err) {
                 console.error(err);
                 showNotification("Export failed.");
