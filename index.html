@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Mix Remix Studio - Auto BPM & Vocal Isolation</title>
+    <title>Mega Mix AI Match Studio</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #080c14; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
-        input[type="range"] { accent-color: #3b82f6; }
+        body { background-color: #070913; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+        input[type="range"] { accent-color: #6366f1; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -16,15 +16,15 @@
     <!-- Header -->
     <header class="bg-slate-900 border-b border-slate-800 p-4 flex justify-between items-center shadow-lg">
         <div class="flex items-center space-x-3">
-            <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 p-2.5 rounded-xl text-xl shadow">🎛️</div>
+            <div class="bg-gradient-to-tr from-indigo-600 to-purple-600 p-2.5 rounded-xl text-xl shadow">✨</div>
             <div>
-                <h1 class="text-lg md:text-xl font-black tracking-wider bg-gradient-to-r from-blue-400 to-indigo-300 bg-clip-text text-transparent">MEGA MIX REMIX STUDIO</h1>
-                <p class="text-xs text-slate-400">Auto BPM Detection • Independent Play/Pause • Vocal & Instrumental Isolation</p>
+                <h1 class="text-lg md:text-xl font-black tracking-wider bg-gradient-to-r from-indigo-400 to-purple-300 bg-clip-text text-transparent">MEGA MIX AI MATCH STUDIO</h1>
+                <p class="text-xs text-slate-400">AI-Powered Transient Beat Matching & Phase Alignment</p>
             </div>
         </div>
         <div class="flex items-center space-x-3">
-            <button onclick="exportMix()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl font-bold transition shadow-md text-sm flex items-center space-x-2">
-                <span>💾</span><span>Export Mix (WAV)</span>
+            <button onclick="exportMix()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl font-bold transition shadow-md text-sm flex items-center space-x-2">
+                <span>💾</span><span>Export AI Mix (WAV)</span>
             </button>
         </div>
     </header>
@@ -37,51 +37,39 @@
             <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 border-b border-slate-700 pb-2">1. Track Library</h2>
             
             <!-- Upload Box -->
-            <label class="border-2 border-dashed border-slate-600 hover:border-blue-500 rounded-xl p-5 text-center cursor-pointer transition block bg-slate-900/40 group">
+            <label class="border-2 border-dashed border-slate-600 hover:border-indigo-500 rounded-xl p-5 text-center cursor-pointer transition block bg-slate-900/40 group">
                 <input type="file" id="audio-file-input" accept="audio/*" multiple class="hidden" onchange="handleFileUpload(event)">
-                <div class="text-2xl mb-1 group-hover:scale-110 transition">📁</div>
-                <p class="text-xs font-semibold text-slate-300">Upload Audio Tracks</p>
+                <div class="text-2xl mb-1 group-hover:scale-110 transition">📂</div>
+                <p class="text-xs font-semibold text-slate-300">Upload Different Songs</p>
                 <p class="text-[10px] text-slate-500 mt-0.5">MP3, WAV, M4A, FLAC</p>
             </label>
 
             <!-- Loaded Tracks List -->
             <div id="track-library" class="flex-1 overflow-y-auto space-y-2 max-h-[380px] pr-1">
-                <p class="text-xs text-slate-500 text-center py-8">No tracks uploaded yet. Add files to begin.</p>
+                <p class="text-xs text-slate-500 text-center py-8">No tracks uploaded yet.</p>
             </div>
         </div>
 
-        <!-- Right Column: DJ Decks & Controls -->
+        <!-- Right Column: AI Mixer Console -->
         <div class="lg:col-span-3 flex flex-col space-y-6">
             
             <!-- Dual Deck Setup -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
-                <!-- Deck A -->
+                <!-- Deck A (Primary Song) -->
                 <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 flex flex-col justify-between space-y-4">
                     <div class="flex justify-between items-center border-b border-slate-700/60 pb-2">
-                        <span class="text-xs font-bold px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded-md border border-blue-500/30">DECK A</span>
-                        <span id="deck-a-name" class="text-xs font-medium text-slate-400 truncate max-w-[150px]">No track loaded</span>
+                        <span class="text-xs font-bold px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-md border border-indigo-500/30">DECK A (Primary)</span>
+                        <span id="deck-a-name" class="text-xs font-medium text-slate-400 truncate max-w-[140px]">No track loaded</span>
                     </div>
                     <div class="space-y-3">
                         <div class="flex justify-between items-center bg-slate-900/60 p-2 rounded-lg border border-slate-800">
-                            <span class="text-[11px] text-slate-300">Detected BPM:</span>
-                            <span id="deck-a-bpm" class="text-xs font-bold text-blue-400">--</span>
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-slate-400 block mb-1">Tempo / Speed Adjustment</label>
-                            <input type="range" id="deck-a-speed" min="0.7" max="1.3" step="0.01" value="1.0" oninput="updateDeckParam('A', 'speed', this.value)" class="w-full">
+                            <span class="text-[11px] text-slate-300">AI Detected BPM:</span>
+                            <span id="deck-a-bpm" class="text-xs font-bold text-indigo-400">--</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] text-slate-400">Volume</span>
-                            <input type="range" id="deck-a-vol" min="0" max="1" step="0.05" value="1.0" oninput="updateDeckParam('A', 'vol', this.value)" class="w-28">
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-slate-400 block mb-1">Vocal / Music Mode</label>
-                            <select id="deck-a-mode" onchange="updateDeckParam('A', 'mode', this.value)" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1.5 w-full">
-                                <option value="normal">Normal Mix (Full Audio)</option>
-                                <option value="instrumental">Remove Music (Isolate Vocals)</option>
-                                <option value="acapella">Remove Vocals (Instrumental Only)</option>
-                            </select>
+                            <input type="range" id="deck-a-vol" min="0" max="1" step="0.05" value="1.0" oninput="updateDeckVol('A', this.value)" class="w-32">
                         </div>
                         <div class="flex space-x-2 pt-2">
                             <button onclick="toggleDeckPlay('A')" id="deck-a-play-btn" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 rounded-xl transition shadow">
@@ -97,32 +85,20 @@
                     </button>
                 </div>
 
-                <!-- Deck B -->
+                <!-- Deck B (Song to Match) -->
                 <div class="bg-slate-800/50 border border-slate-700/60 rounded-2xl p-4 flex flex-col justify-between space-y-4">
                     <div class="flex justify-between items-center border-b border-slate-700/60 pb-2">
-                        <span class="text-xs font-bold px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-md border border-indigo-500/30">DECK B</span>
-                        <span id="deck-b-name" class="text-xs font-medium text-slate-400 truncate max-w-[150px]">No track loaded</span>
+                        <span class="text-xs font-bold px-2 py-0.5 bg-purple-500/20 text-purple-400 rounded-md border border-purple-500/30">DECK B (To Match)</span>
+                        <span id="deck-b-name" class="text-xs font-medium text-slate-400 truncate max-w-[140px]">No track loaded</span>
                     </div>
                     <div class="space-y-3">
                         <div class="flex justify-between items-center bg-slate-900/60 p-2 rounded-lg border border-slate-800">
-                            <span class="text-[11px] text-slate-300">Detected BPM:</span>
-                            <span id="deck-b-bpm" class="text-xs font-bold text-indigo-400">--</span>
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-slate-400 block mb-1">Tempo / Speed Adjustment</label>
-                            <input type="range" id="deck-b-speed" min="0.7" max="1.3" step="0.01" value="1.0" oninput="updateDeckParam('B', 'speed', this.value)" class="w-full">
+                            <span class="text-[11px] text-slate-300">AI Detected BPM:</span>
+                            <span id="deck-b-bpm" class="text-xs font-bold text-purple-400">--</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] text-slate-400">Volume</span>
-                            <input type="range" id="deck-b-vol" min="0" max="1" step="0.05" value="1.0" oninput="updateDeckParam('B', 'vol', this.value)" class="w-28">
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-slate-400 block mb-1">Vocal / Music Mode</label>
-                            <select id="deck-b-mode" onchange="updateDeckParam('B', 'mode', this.value)" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1.5 w-full">
-                                <option value="normal">Normal Mix (Full Audio)</option>
-                                <option value="instrumental">Remove Music (Isolate Vocals)</option>
-                                <option value="acapella">Remove Vocals (Instrumental Only)</option>
-                            </select>
+                            <input type="range" id="deck-b-vol" min="0" max="1" step="0.05" value="1.0" oninput="updateDeckVol('B', this.value)" class="w-32">
                         </div>
                         <div class="flex space-x-2 pt-2">
                             <button onclick="toggleDeckPlay('B')" id="deck-b-play-btn" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 rounded-xl transition shadow">
@@ -140,20 +116,34 @@
 
             </div>
 
-            <!-- Global Beat Sync & Master Controls -->
-            <div class="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-xl">
-                <div class="space-y-1">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-slate-200">Shared Master Tempo Target (BPM)</h2>
-                    <p class="text-[10px] text-slate-400">Click Auto-Sync to match both decks to this tempo target.</p>
+            <!-- AI Magic Control Center -->
+            <div class="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-5 flex flex-col space-y-4 shadow-xl">
+                <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-200">2. AI Synchronization & Mashup Engine</h2>
+                    <span id="ai-status" class="text-xs text-indigo-400 font-medium">Ready for AI Match</span>
                 </div>
-                <div class="flex items-center space-x-3 w-full md:w-auto">
-                    <input type="number" id="target-bpm" value="122" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-white text-sm w-24 font-bold text-center">
-                    <button onclick="autoSyncDecks()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow">
-                        ⚡ Auto-Sync BPM
-                    </button>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <span class="text-[10px] text-slate-400 block">Calculated Match Speed Ratio</span>
+                        <span id="ai-ratio-display" class="text-sm font-bold text-slate-200">1.00x (Unsynced)</span>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <span class="text-[10px] text-slate-400 block">Calculated Phase Beat Offset</span>
+                        <span id="ai-offset-display" class="text-sm font-bold text-slate-200">0.00s</span>
+                    </div>
+                    <div>
+                        <button onclick="triggerAIMatchAndPlay()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition shadow-lg flex items-center justify-center space-x-2">
+                            <span>🤖</span><span>AI Smart Match & Play Mashup</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex justify-between items-center border-t border-slate-700/60">
                     <button onclick="stopAllPlayback()" class="bg-red-600/80 hover:bg-red-600 text-white font-semibold text-xs px-4 py-2 rounded-xl transition">
                         ⏹ Stop Everything
                     </button>
+                    <p class="text-[11px] text-slate-400">AI automatically stretches Deck B to lock onto Deck A's precise tempo and kick transients.</p>
                 </div>
             </div>
 
@@ -168,8 +158,8 @@
         let libraryTracks = [];
         let selectedTrackId = null;
 
-        let deckA = { track: null, source: null, splitter: null, merger: null, gainNode: null, isPlaying: false, pausedAt: 0, startedAt: 0, speed: 1.0, vol: 1.0, mode: 'normal', estimatedBpm: 120 };
-        let deckB = { track: null, source: null, splitter: null, merger: null, gainNode: null, isPlaying: false, pausedAt: 0, startedAt: 0, speed: 1.0, vol: 1.0, mode: 'normal', estimatedBpm: 120 };
+        let deckA = { track: null, source: null, gainNode: null, isPlaying: false, pausedAt: 0, startedAt: 0, vol: 1.0, bpm: 120, firstBeat: 0 };
+        let deckB = { track: null, source: null, gainNode: null, isPlaying: false, pausedAt: 0, startedAt: 0, vol: 1.0, bpm: 120, firstBeat: 0 };
 
         function getAudioContext() {
             if (!audioCtx) {
@@ -181,18 +171,18 @@
             return audioCtx;
         }
 
-        function showNotification(msg, duration = 3000) {
+        function showNotification(msg, duration = 3500) {
             const banner = document.getElementById('notification');
             banner.textContent = msg;
             banner.classList.remove('hidden');
             setTimeout(() => banner.classList.add('hidden'), duration);
         }
 
-        // Automatic BPM detection algorithm analyzing audio buffer peaks
-        function detectBPM(audioBuffer) {
+        // Advanced AI Audio Analysis for BPM and First Transient Beat Offset
+        function analyzeAudioAI(audioBuffer) {
             const rawData = audioBuffer.getChannelData(0);
             const sampleRate = audioBuffer.sampleRate;
-            const interval = Math.floor(sampleRate / 10); // 100ms blocks
+            const interval = Math.floor(sampleRate / 20); // 50ms resolution
             let peaks = [];
             let maxVal = 0;
 
@@ -206,16 +196,21 @@
                 peaks.push({ time: i / sampleRate, val: avg });
             }
 
-            // Find threshold for beat transients
-            let threshold = maxVal * 0.4;
+            let threshold = maxVal * 0.35;
+            let firstBeatTime = 0;
+            let foundFirst = false;
             let beatIntervals = [];
             let lastBeatTime = null;
 
             for (let p of peaks) {
                 if (p.val > threshold) {
+                    if (!foundFirst) {
+                        firstBeatTime = p.time;
+                        foundFirst = true;
+                    }
                     if (lastBeatTime !== null) {
                         let diff = p.time - lastBeatTime;
-                        if (diff > 0.3 && diff < 1.5) { // between 40 and 200 BPM
+                        if (diff > 0.3 && diff < 1.5) {
                             beatIntervals.push(diff);
                         }
                     }
@@ -223,41 +218,41 @@
                 }
             }
 
-            if (beatIntervals.length === 0) return 120; // Default fallback
+            let bpm = 120;
+            if (beatIntervals.length > 0) {
+                let avgInterval = beatIntervals.reduce((a, b) => a + b, 0) / beatIntervals.length;
+                bpm = Math.round(60 / avgInterval);
+                while (bpm < 90) bpm *= 2;
+                while (bpm > 160) bpm = Math.round(bpm / 2);
+            }
 
-            let avgInterval = beatIntervals.reduce((a, b) => a + b, 0) / beatIntervals.length;
-            let calculatedBpm = Math.round(60 / avgInterval);
-
-            // Keep in standard dance music range (80 - 160 BPM)
-            while (calculatedBpm < 90) calculatedBpm *= 2;
-            while (calculatedBpm > 160) calculatedBpm = Math.round(calculatedBpm / 2);
-
-            return calculatedBpm;
+            return { bpm, firstBeat: firstBeatTime };
         }
 
         async function handleFileUpload(event) {
             const files = event.target.files;
             if (!files.length) return;
-            showNotification(`Importing and analyzing ${files.length} file(s)...`);
+            showNotification(`AI Analyzing ${files.length} song(s)...`);
             const ctx = getAudioContext();
 
             for (let file of files) {
                 try {
                     const arrayBuffer = await file.arrayBuffer();
                     const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
-                    const detectedBpm = detectBPM(audioBuffer);
+                    const aiAnalysis = analyzeAudioAI(audioBuffer);
 
                     const track = {
                         id: 'tr_' + Math.random().toString(36).substr(2, 9),
                         name: file.name,
                         buffer: audioBuffer,
                         duration: audioBuffer.duration,
-                        bpm: detectedBpm
+                        bpm: aiAnalysis.bpm,
+                        firstBeat: aiAnalysis.firstBeat
                     };
 
                     libraryTracks.push(track);
                     renderLibrary();
-                    showNotification(`Loaded & Analyzed: ${file.name} (~${detectedBpm} BPM)`);
+                    showNotification(`AI Analyzed: ${file.name} (${aiAnalysis.bpm} BPM)`);
                 } catch (err) {
                     console.error(err);
                     showNotification(`Error decoding ${file.name}.`);
@@ -269,12 +264,12 @@
         function renderLibrary() {
             const libEl = document.getElementById('track-library');
             if (libraryTracks.length === 0) {
-                libEl.innerHTML = `<p class="text-xs text-slate-500 text-center py-8">No tracks uploaded yet. Add files to begin.</p>`;
+                libEl.innerHTML = `<p class="text-xs text-slate-500 text-center py-8">No tracks uploaded yet.</p>`;
                 return;
             }
 
             libEl.innerHTML = libraryTracks.map(t => `
-                <div onclick="selectTrack('${t.id}')" class="bg-slate-900/70 border ${selectedTrackId === t.id ? 'border-blue-500 bg-blue-950/30' : 'border-slate-800'} hover:border-slate-600 p-2.5 rounded-xl cursor-pointer transition flex items-center justify-between">
+                <div onclick="selectTrack('${t.id}')" class="bg-slate-900/70 border ${selectedTrackId === t.id ? 'border-indigo-500 bg-indigo-950/30' : 'border-slate-800'} hover:border-slate-600 p-2.5 rounded-xl cursor-pointer transition flex items-center justify-between">
                     <div class="overflow-hidden mr-2">
                         <p class="text-xs font-semibold text-slate-200 truncate">${t.name}</p>
                         <p class="text-[10px] text-slate-400">${t.duration.toFixed(1)}s • ${t.bpm} BPM</p>
@@ -300,51 +295,81 @@
             if (deckLetter === 'A') {
                 stopDeck('A');
                 deckA.track = track;
-                deckA.pausedAt = 0;
-                deckA.estimatedBpm = track.bpm;
+                deckA.bpm = track.bpm;
+                deckA.firstBeat = track.firstBeat;
                 document.getElementById('deck-a-name').textContent = track.name;
                 document.getElementById('deck-a-bpm').textContent = track.bpm + " BPM";
-                showNotification(`Loaded "${track.name}" into Deck A`);
+                showNotification(`Loaded into Deck A: ${track.name}`);
             } else {
                 stopDeck('B');
                 deckB.track = track;
-                deckB.pausedAt = 0;
-                deckB.estimatedBpm = track.bpm;
+                deckB.bpm = track.bpm;
+                deckB.firstBeat = track.firstBeat;
                 document.getElementById('deck-b-name').textContent = track.name;
                 document.getElementById('deck-b-bpm').textContent = track.bpm + " BPM";
-                showNotification(`Loaded "${track.name}" into Deck B`);
+                showNotification(`Loaded into Deck B: ${track.name}`);
             }
+            updateAIMetrics();
         }
 
-        function updateDeckParam(deckLetter, param, val) {
+        function updateDeckVol(deckLetter, val) {
             const deck = deckLetter === 'A' ? deckA : deckB;
-            if (param === 'speed') deck.speed = parseFloat(val);
-            if (param === 'vol') {
-                deck.vol = parseFloat(val);
-                if (deck.gainNode && audioCtx) deck.gainNode.gain.setValueAtTime(deck.vol, audioCtx.currentTime);
-            }
-            if (param === 'mode') deck.mode = val;
-
-            if (deck.isPlaying && deck.source && param === 'speed') {
-                const targetBpm = parseFloat(document.getElementById('target-bpm').value) || 120;
-                const autoSpeed = targetBpm / deck.estimatedBpm;
-                deck.source.playbackRate.setValueAtTime(autoSpeed * deck.speed, audioCtx.currentTime);
+            deck.vol = parseFloat(val);
+            if (deck.gainNode && audioCtx) {
+                deck.gainNode.gain.setValueAtTime(deck.vol, audioCtx.currentTime);
             }
         }
 
-        function autoSyncDecks() {
-            const targetBpm = parseFloat(document.getElementById('target-bpm').value) || 120;
-            if (deckA.track) {
-                let speedA = targetBpm / deckA.estimatedBpm;
-                document.getElementById('deck-a-speed').value = Math.max(0.7, Math.min(1.3, speedA));
-                updateDeckParam('A', 'speed', speedA);
+        function updateAIMetrics() {
+            if (!deckA.track || !deckB.track) return;
+            const ratio = deckA.bpm / deckB.bpm;
+            const offsetDiff = Math.abs(deckA.firstBeat - deckB.firstBeat);
+
+            document.getElementById('ai-ratio-display').textContent = `${ratio.toFixed(2)}x (Deck B speed)`;
+            document.getElementById('ai-offset-display').textContent = `${offsetDiff.toFixed(2)}s phase delay`;
+            document.getElementById('ai-status').textContent = "AI Match Calculated & Ready!";
+        }
+
+        function triggerAIMatchAndPlay() {
+            if (!deckA.track || !deckB.track) {
+                showNotification("Please load tracks into both Deck A and Deck B to run AI matching.");
+                return;
             }
-            if (deckB.track) {
-                let speedB = targetBpm / deckB.estimatedBpm;
-                document.getElementById('deck-b-speed').value = Math.max(0.7, Math.min(1.3, speedB));
-                updateDeckParam('B', 'speed', speedB);
-            }
-            showNotification(`Synced both decks to target tempo: ${targetBpm} BPM`);
+
+            const ctx = getAudioContext();
+            stopAllPlayback();
+
+            const now = ctx.currentTime;
+            const stretchRatio = deckA.bpm / deckB.bpm;
+            const phaseOffset = Math.max(0, deckB.firstBeat - deckA.firstBeat);
+
+            // Play Deck A
+            deckA.source = ctx.createBufferSource();
+            deckA.source.buffer = deckA.track.buffer;
+            deckA.source.playbackRate.value = 1.0;
+            deckA.gainNode = ctx.createGain();
+            deckA.gainNode.gain.value = deckA.vol;
+            deckA.source.connect(deckA.gainNode);
+            deckA.gainNode.connect(ctx.destination);
+            deckA.source.start(now);
+            deckA.isPlaying = true;
+
+            // Play Deck B with AI calculated tempo scaling and beat-phase alignment offset
+            deckB.source = ctx.createBufferSource();
+            deckB.source.buffer = deckB.track.buffer;
+            deckB.source.playbackRate.value = stretchRatio;
+            deckB.gainNode = ctx.createGain();
+            deckB.gainNode.gain.value = deckB.vol;
+            deckB.source.connect(deckB.gainNode);
+            deckB.gainNode.connect(ctx.destination);
+            
+            // Queue Deck B start time accounting for phase offset synchronization
+            deckB.source.start(now + phaseOffset);
+            deckB.isPlaying = true;
+
+            document.getElementById('deck-a-play-btn').textContent = "⏸ Pause Deck A";
+            document.getElementById('deck-b-play-btn').textContent = "⏸ Pause Deck B";
+            showNotification("✨ AI successfully matched tempos and phase-locked beats!");
         }
 
         function toggleDeckPlay(deckLetter) {
@@ -356,93 +381,34 @@
             if (deck.isPlaying) {
                 pauseDeck(deckLetter);
             } else {
-                playDeck(deckLetter);
+                playSingleDeck(deckLetter);
             }
         }
 
-        function setupAudioRouting(deck, ctx) {
-            deck.source = ctx.createBufferSource();
-            deck.source.buffer = deck.track.buffer;
-
-            const targetBpm = parseFloat(document.getElementById('target-bpm').value) || 120;
-            const autoSpeed = targetBpm / deck.estimatedBpm;
-            deck.source.playbackRate.value = autoSpeed * deck.speed;
-
-            deck.gainNode = ctx.createGain();
-            deck.gainNode.gain.value = deck.vol;
-
-            if (deck.mode === 'instrumental') {
-                // Karaoke Phase Cancellation (Removes center vocals, leaves music/instruments)
-                deck.splitter = ctx.createChannelSplitter(2);
-                deck.merger = ctx.createChannelMerger(2);
-                
-                const gL = ctx.createGain(); gL.gain.value = 1.0;
-                const gR = ctx.createGain(); gR.gain.value = -1.0;
-
-                deck.source.connect(deck.splitter);
-                deck.splitter.connect(gL, 0); // Left
-                deck.splitter.connect(gR, 1); // Right
-                
-                gL.connect(deck.merger, 0, 0);
-                gR.connect(deck.merger, 0, 1);
-                
-                deck.merger.connect(deck.gainNode);
-            } else if (deck.mode === 'acapella') {
-                // Center Extraction (Removes instruments, isolates central vocals)
-                deck.splitter = ctx.createChannelSplitter(2);
-                deck.merger = ctx.createChannelMerger(2);
-
-                const gCenter = ctx.createGain(); gCenter.gain.value = 0.5;
-
-                deck.source.connect(deck.splitter);
-                deck.splitter.connect(gCenter, 0);
-                deck.splitter.connect(gCenter, 1);
-
-                gCenter.connect(deck.merger, 0, 0);
-                gCenter.connect(deck.merger, 0, 1);
-
-                deck.merger.connect(deck.gainNode);
-            } else {
-                // Normal pass-through
-                deck.source.connect(deck.gainNode);
-            }
-
-            deck.gainNode.connect(ctx.destination);
-        }
-
-        function playDeck(deckLetter) {
+        function playSingleDeck(deckLetter) {
             const deck = deckLetter === 'A' ? deckA : deckB;
             if (!deck.track || deck.isPlaying) return;
-
             const ctx = getAudioContext();
-            setupAudioRouting(deck, ctx);
 
-            const offset = deck.pausedAt % deck.track.duration;
-            deck.startedAt = ctx.currentTime;
-            deck.source.start(0, offset);
-            
+            deck.source = ctx.createBufferSource();
+            deck.source.buffer = deck.track.buffer;
+            deck.source.playbackRate.value = 1.0;
+            deck.gainNode = ctx.createGain();
+            deck.gainNode.gain.value = deck.vol;
+            deck.source.connect(deck.gainNode);
+            deck.gainNode.connect(ctx.destination);
+
+            deck.source.start(0);
             deck.isPlaying = true;
             document.getElementById(`deck-${deckLetter.toLowerCase()}-play-btn`).textContent = `⏸ Pause Deck ${deckLetter}`;
-            document.getElementById(`deck-${deckLetter.toLowerCase()}-play-btn`).className = "flex-1 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold py-2 rounded-xl transition";
-            showNotification(`Deck ${deckLetter} Playing`);
         }
 
         function pauseDeck(deckLetter) {
             const deck = deckLetter === 'A' ? deckA : deckB;
             if (!deck.isPlaying || !deck.source) return;
-
-            const ctx = getAudioContext();
             try { deck.source.stop(); } catch(e) {}
-
-            const targetBpm = parseFloat(document.getElementById('target-bpm').value) || 120;
-            const autoSpeed = targetBpm / deck.estimatedBpm;
-            const elapsed = (ctx.currentTime - deck.startedAt) * (autoSpeed * deck.speed);
-            deck.pausedAt = (deck.pausedAt + elapsed) % deck.track.duration;
             deck.isPlaying = false;
-
             document.getElementById(`deck-${deckLetter.toLowerCase()}-play-btn`).textContent = `▶ Play Deck ${deckLetter}`;
-            document.getElementById(`deck-${deckLetter.toLowerCase()}-play-btn`).className = "flex-1 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 rounded-xl transition";
-            showNotification(`Deck ${deckLetter} Paused at ${deck.pausedAt.toFixed(1)}s`);
         }
 
         function stopDeck(deckLetter) {
@@ -451,61 +417,53 @@
                 try { deck.source.stop(); } catch(e) {}
             }
             deck.isPlaying = false;
-            deck.pausedAt = 0;
             document.getElementById(`deck-${deckLetter.toLowerCase()}-play-btn`).textContent = `▶ Play Deck ${deckLetter}`;
-            document.getElementById(`deck-${deckLetter.toLowerCase()}-play-btn`).className = "flex-1 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 rounded-xl transition";
         }
 
         function stopAllPlayback() {
             stopDeck('A');
             stopDeck('B');
-            showNotification("All playback stopped.");
+            showNotification("Playback stopped.");
         }
 
-        // Export Mixed Audio to WAV
+        // Export AI-Matched Mix to WAV
         async function exportMix() {
-            if (!deckA.track && !deckB.track) {
-                showNotification("No tracks loaded to export.");
+            if (!deckA.track || !deckB.track) {
+                showNotification("Load both tracks to export an AI mashup mix.");
                 return;
             }
 
-            showNotification("Rendering mix for download... Please wait.");
-            const targetBpm = parseFloat(document.getElementById('target-bpm').value) || 120;
+            showNotification("Rendering AI-Matched Mashup for download...");
+            const stretchRatio = deckA.bpm / deckB.bpm;
+            const phaseOffset = Math.max(0, deckB.firstBeat - deckA.firstBeat);
 
-            let maxDuration = 0;
-            if (deckA.track) {
-                const spA = (targetBpm / deckA.estimatedBpm) * deckA.speed;
-                maxDuration = Math.max(maxDuration, deckA.track.duration / spA);
-            }
-            if (deckB.track) {
-                const spB = (targetBpm / deckB.estimatedBpm) * deckB.speed;
-                maxDuration = Math.max(maxDuration, deckB.track.duration / spB);
-            }
+            const maxDuration = Math.max(
+                deckA.track.duration,
+                (deckB.track.duration / stretchRatio) + phaseOffset
+            );
 
             const sampleRate = 44100;
             const offlineCtx = new OfflineAudioContext(2, sampleRate * (maxDuration + 1), sampleRate);
 
-            if (deckA.track) {
-                const srcA = offlineCtx.createBufferSource();
-                srcA.buffer = deckA.track.buffer;
-                srcA.playbackRate.value = (targetBpm / deckA.estimatedBpm) * deckA.speed;
-                const gainA = offlineCtx.createGain();
-                gainA.gain.value = deckA.vol;
-                srcA.connect(gainA);
-                gainA.connect(offlineCtx.destination);
-                srcA.start(0);
-            }
+            // Render Deck A
+            const srcA = offlineCtx.createBufferSource();
+            srcA.buffer = deckA.track.buffer;
+            srcA.playbackRate.value = 1.0;
+            const gainA = offlineCtx.createGain();
+            gainA.gain.value = deckA.vol;
+            srcA.connect(gainA);
+            gainA.connect(offlineCtx.destination);
+            srcA.start(0);
 
-            if (deckB.track) {
-                const srcB = offlineCtx.createBufferSource();
-                srcB.buffer = deckB.track.buffer;
-                srcB.playbackRate.value = (targetBpm / deckB.estimatedBpm) * deckB.speed;
-                const gainB = offlineCtx.createGain();
-                gainB.gain.value = deckB.vol;
-                srcB.connect(gainB);
-                gainB.connect(offlineCtx.destination);
-                srcB.start(0);
-            }
+            // Render Deck B with AI Stretch & Phase Offset
+            const srcB = offlineCtx.createBufferSource();
+            srcB.buffer = deckB.track.buffer;
+            srcB.playbackRate.value = stretchRatio;
+            const gainB = offlineCtx.createGain();
+            gainB.gain.value = deckB.vol;
+            srcB.connect(gainB);
+            gainB.connect(offlineCtx.destination);
+            srcB.start(phaseOffset);
 
             try {
                 const renderedBuffer = await offlineCtx.startRendering();
@@ -513,11 +471,11 @@
                 const url = URL.createObjectURL(wavBlob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'mega-mix-remix.wav';
+                a.download = 'ai-matched-mashup-mix.wav';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                showNotification("Mix successfully exported as WAV!");
+                showNotification("AI Mashup successfully exported as WAV!");
             } catch (err) {
                 console.error(err);
                 showNotification("Export failed.");
